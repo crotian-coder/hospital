@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+
+	<button id="click" >
+		click on
+	</button>
+
+</body>
+<script type="text/javascript">
+	  $("#signin").click(function(){
+
+    let formData = new FormData();
+    formData.append('email', $("#email").val())
+    formData.append('password', $("#password").val())
+
+    console.log($("#password").val(),$("#email").val())
+
+    formData.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+
+    $.ajax({
+    type: "POST",
+    url: "{% url 'signin' %}",
+    data: formData,
+    cache: false,
+    processData: false,
+    contentType: false,
+    enctype: 'multipart/form-data',
+    success: function(data){
+      console.log("success!")
+      location.replace("{% url 'home' %}")
+    },
+    error: function(data){
+      console.log("failed",data)
+      Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: data.responseJSON.error,
+      })
+    }
+    });
+  })
+</script>
+</html>

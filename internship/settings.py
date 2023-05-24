@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-lk$m#v&^$vv8b69evu59uyw&q@tbra*@4)w5tp0g%!og4!vxsl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,10 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
     'app'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -122,7 +125,12 @@ MEDIA_ROOT = str(BASE_DIR) + "/images"
 MEDIA_URL = '/images/'
 
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+DOMAIN = 'http://127.0.0.1:8000'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
